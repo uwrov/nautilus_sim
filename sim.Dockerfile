@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     libtinyxml-dev \
     cmake \
     build-essential \
-    curl wget vim git \
+    curl git \
     ros-${ROS_DISTRO}-gazebo-ros-pkgs \
     ros-${ROS_DISTRO}-gazebo-ros-control \
     xvfb
@@ -26,13 +26,14 @@ RUN . ~/.bashrc \
   && nvm alias default $NODE_VERSION \
   && nvm use default
 
-WORKDIR /~
+# switch to /root
+WORKDIR /root
 
 # install and build gzweb
 RUN git clone https://github.com/osrf/gzweb
 RUN . ~/.bashrc && . /usr/share/gazebo/setup.sh \
    && cd gzweb \
-   && ./deploy.sh -m -t
+   && ./deploy.sh -m
 
 EXPOSE 8080
 

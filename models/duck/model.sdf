@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<sdf version="1.5">
+  <model name="duck">
+
+    <link name="body">
+      <origin pose="0 0 0 0 1.57 0"/>
+      <collision name="body_collision">
+        <geometry>
+          <mesh filename="meshes/duck.dae" scale="1 1 1"/>
+        </geometry>
+      </collision>
+      <visual name="body_visual" cast_shadows="false">
+        <geometry>
+          <mesh filename="meshes/duck.dae" scale="1 1 1"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <!-- Enable buoyancy (default settings) -->
+    <!-- http://gazebosim.org/tutorials?tut=hydrodynamics&cat=plugins -->
+    <plugin name="buoyancy" filename="libBouyancyPlugin.so">
+      <link name="body" />
+    </plugin>
+  </model>
+</sdf>
