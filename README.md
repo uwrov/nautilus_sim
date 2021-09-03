@@ -25,6 +25,20 @@ docker run -p 8080:8080 -it nautilus_sim
 ### Run Gazebo (empty world)
 ```Bash
 Xvfb :1 -screen 0 1600x1200x16 & export DISPLAY=:1.0  # Start a virtual display (makes rendering easier)
-cd /gzweb
+cd gzweb
 gzserver --verbose & npm start                        # Start gazebo server and the gzweb interface
+```
+### Run Gazebo (underwater world)
+Terminal 1
+```Bash
+Xvfb :1 -screen 0 1600x1200x16 & export DISPLAY=:1.0  # Start a virtual display (makes rendering easier)
+cd nautilus_worlds/worlds
+source /usr/share/gazebo/setup.sh                     # Get our models in gazebo
+gzserver --verbose underwater.world                   # Start gazebo server 
+```
+
+Terminal 2
+```Bash
+cd gzweb
+npm start                                             # Start the web interface
 ```
