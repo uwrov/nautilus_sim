@@ -13,7 +13,7 @@ docker build -t nautilus_sim_base -f sim.Dockerfile .
 
 ### Build the Working Image
 ```Bash
-docker built -t nautilus_sim .
+docker build -t nautilus_sim .
 ```
 
 ### Run the Container
