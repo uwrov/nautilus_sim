@@ -8,7 +8,13 @@ Make sure you have docker installed and have access to [nautilus_surface](https:
 ### Build the Base Simulation Image Locally (Optional)
 Only need to do this if you're making changes to the core set of packages being used in the simulator. Note that this can take up to an hour to finish.
 ```
-docker build -t nautilus_sim_base -f sim.Dockerfile .
+docker build -t uwrov/sim_base -f sim.Dockerfile .
+```
+
+### Push updates of base image to docker hub
+Make sure you have access to the repo, and then:
+```
+docker push uwrov/sim_base:latest
 ```
 
 ### Build the Working Image
