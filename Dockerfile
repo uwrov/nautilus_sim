@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM nautilus_sim_base:latest
+FROM uwrov/sim_base:latest
 
 # switch to /root
 ENV DIRPATH /root

@@ -1,23 +1,27 @@
 # syntax=docker/dockerfile:1
-FROM ros:melodic-ros-core-bionic
+FROM ros:noetic-ros-core-focal
 
-ENV ROS_DISTRO melodic
+ENV ROS_DISTRO noetic
 ENV NODE_VERSION 11
 
-# Install dependencies
+# Install general utilities
 RUN apt-get update && apt-get install -y \
-    gazebo9 \
-    libgazebo9-dev \
-    libjansson-dev \
-    libboost-dev \ 
     imagemagick \
-    libtinyxml-dev \
     cmake \
     build-essential \
-    curl git \
-    ros-${ROS_DISTRO}-gazebo-ros-pkgs \
-    ros-${ROS_DISTRO}-gazebo-ros-control \
+    curl \
+    git \
     xvfb
+
+# Install gazebo and dependencies
+RUN apt-get update && apt-get install -y \
+    gazebo11 \
+    libgazebo11-dev \
+    libjansson-dev \
+    libboost-dev \ 
+    libtinyxml-dev \
+    ros-${ROS_DISTRO}-gazebo-ros-pkgs \
+    ros-${ROS_DISTRO}-gazebo-ros-control
 
 # Install nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
