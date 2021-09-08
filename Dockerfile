@@ -16,5 +16,4 @@ COPY setup.sh /usr/share/gazebo/
 
 EXPOSE 8080
 
-# SHELL /bin/bash -c "source /root/.bashrc && /usr/share/gazebo/setup.sh"
-SHELL ["/bin/bash", "-c", "source /root/.bashrc && /usr/share/gazebo/setup.sh"]
+RUN echo "source /usr/share/gazebo/setup.sh" >> /root/.bashrc
