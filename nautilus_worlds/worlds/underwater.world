@@ -1,4 +1,4 @@
-  
+
 <?xml version="1.0" ?>
 <sdf version="1.5">
   <world name="default">
@@ -10,7 +10,7 @@
     <include>
       <uri>model://sun</uri>
     </include>
-    
+
     <model name="ceiling_plane">
       <static>true</static>
       <pose>0 0 40 0 0 0</pose>
@@ -119,16 +119,9 @@
       <pose>-5 0 10 1.57 0 0</pose>
     </include>
 
-    <!-- <model name="duck">
-      <pose>0 0 0 0 0 0</pose>
-      <link name="body">
-        <visual name="visual">
-          <geometry>
-            <mesh><uri>file://ddded.dae</uri></mesh>
-          </geometry>
-        </visual>
-      </link>
-    </model> -->
+    <include>
+      <uri>model://nautilus</uri>
+    </include>
 
   </world>
 </sdf>

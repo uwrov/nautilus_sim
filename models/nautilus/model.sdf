@@ -1,10 +1,39 @@
 <?xml version="1.0"?>
 <sdf version="1.5">
   <model name="nautilus">
-
-  <!-- Enable buoyancy (default settings) -->
-  <!-- http://gazebosim.org/tutorials?tut=hydrodynamics&cat=plugins -->
-  <plugin name="buoyancy" filename="libBouyancyPlugin.so">
-  </plugin>
+  <pose>0 0 5 0 0 0</pose>
+    <link name="link">
+      <inertial>
+        <mass>1000.0</mass>
+        <inertia>
+          <ixx>0.083</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.083</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.083</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+    <plugin name="BuoyancyPlugin" filename="libBuoyancyPlugin.so">
+      <fluid_density>1000</fluid_density>
+      <link name="body">
+        <volume>1</volume>
+      </link>
+    </plugin>
   </model>
 </sdf>
