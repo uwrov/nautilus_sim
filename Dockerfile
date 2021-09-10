@@ -17,3 +17,4 @@ COPY setup.sh /usr/share/gazebo/
 EXPOSE 8080
 
 RUN echo "source /usr/share/gazebo/setup.sh" >> /root/.bashrc
+RUN echo "source /opt/ros/noetic/setup.bash" >> /root/.bashrc
