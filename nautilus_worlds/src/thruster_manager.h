@@ -46,8 +46,6 @@ class ThrusterManager : public ModelPlugin {
     std::unique_ptr<ros::NodeHandle>  nh_;
     std::unique_ptr<ros::CallbackQueue> q_;
 
-    std::unique_ptr<std::thread> sub_thread_ptr_;
-
     void pwmCallback(const std_msgs::Int16MultiArray::ConstPtr& msg);
     static void sigintHandler(int sig);
     void subThread();
