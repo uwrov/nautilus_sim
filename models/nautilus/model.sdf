@@ -1,10 +1,43 @@
 <?xml version="1.0"?>
 <sdf version="1.5">
   <model name="nautilus">
-  <pose>0 0 5 0 0 0</pose>
-    <link name="link">
+    <pose>0 0 0 0 0 0</pose>
+    
+    <joint name="A_body" type="fixed">
+      <parent>body</parent>
+      <child>motor_A</child>
+    </joint>
+
+    <joint name="B_body" type="fixed">
+      <parent>body</parent>
+      <child>motor_B</child>
+    </joint>
+
+    <joint name="C_body" type="fixed">
+      <parent>body</parent>
+      <child>motor_C</child>
+    </joint>
+
+    <joint name="D_body" type="fixed">
+      <parent>body</parent>
+      <child>motor_D</child>
+    </joint>
+
+    <joint name="E_body" type="fixed">
+      <parent>body</parent>
+      <child>motor_E</child>
+    </joint>
+
+    <joint name="F_body" type="fixed">
+      <parent>body</parent>
+      <child>motor_F</child>
+    </joint>
+
+    <link name="body">
       <inertial>
-        <mass>1000.0</mass>
+        <pose>0 -.135 0 0 0 0</pose>
+        <!-- TOOD: get a better mass estimate -->
+        <mass>21.576</mass>
         <inertia>
           <ixx>0.083</ixx>
           <ixy>0.0</ixy>
@@ -14,26 +47,199 @@
           <izz>0.083</izz>
         </inertia>
       </inertial>
-      <collision name="collision">
+
+      <collision name="body_collision">
+        <!-- <geometry>
+          <mesh>
+            <uri>model://nautilus/meshes/nautilus.dae</uri>
+          </mesh>>
+        </geometry> -->
         <geometry>
           <box>
-            <size>1 1 1</size>
+            <!-- TODO: center model and tighten bounding box -->
+            <size>.29 .31 .24</size>
           </box>
         </geometry>
       </collision>
-      <visual name="visual">
+
+      <visual name="body_visual">
         <geometry>
-          <box>
-            <size>1 1 1</size>
-          </box>
+          <mesh>
+            <uri>model://nautilus/meshes/nautilus.dae</uri>
+          </mesh>
         </geometry>
       </visual>
     </link>
+
+    <link name="motor_A">
+      <pose relative_to="body">.16 -.34 -.02 -1.57 0 -.785</pose>
+      
+      <inertial>
+        <!-- motors are included in buoyancy calcs so make sure to balance -->
+        <!-- should really be 0 but can't have massless link in gazebo -->
+        <mass>0.165792</mass>
+      </inertial>
+
+      <collision name="motor_a_collision">
+        <geometry>
+          <cylinder>
+            <radius>.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <visual name="motor_a_visual">
+        <transparency>1.0</transparency>
+        <geometry>
+          <cylinder>
+            <radius>.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="motor_B">
+      <pose relative_to="body">-.16 -.34 -.02 -1.57 0 .785</pose>
+
+      <inertial>
+        <mass>0.165792</mass>
+      </inertial>
+
+      <collision name="motor_b_collision">
+        <geometry>
+          <cylinder>
+            <radius>.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <visual name="motor_b_visual">
+        <geometry>
+          <cylinder>
+            <radius>.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="motor_C">
+      <pose relative_to="body">.16 .07 -.02 -1.57 0 .785</pose>
+
+      <inertial>
+        <mass>0.165792</mass>
+      </inertial>
+
+      <collision name="motor_c_collision">
+        <geometry>
+          <cylinder>
+            <radius>.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <visual name="motor_c_visual">
+        <geometry>
+          <cylinder>
+            <radius>.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="motor_D">
+      <pose relative_to="body">-.16 .07 -.02 -1.57 0 -.785</pose>
+
+      <inertial>
+        <mass>0.165792</mass>
+      </inertial>
+
+      <collision name="motor_d_collision">
+        <geometry>
+          <cylinder>
+            <radius>.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <visual name="motor_d_visual">
+        <geometry>
+          <cylinder>
+            <radius>.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="motor_E">
+      <pose relative_to="body">.165 -.135 -.02 0 0 0</pose>
+      
+      <inertial>
+        <mass>0.165792</mass>
+      </inertial>
+
+      <collision name="motor_e_collision">
+        <geometry>
+          <cylinder>
+            <radius>.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <visual name="motor_e_visual">
+        <geometry>
+          <cylinder>
+            <radius>.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="motor_F">
+      <pose relative_to="body">-.165 -.135 -.02 0 0 0</pose>
+
+      <inertial>
+        <mass>0.165792</mass>
+      </inertial>
+
+      <collision name="motor_f_collision">
+        <geometry>
+          <cylinder>
+            <radius>.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <visual name="motor_f_visual">
+        <geometry>
+          <cylinder>
+            <radius>.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
     <plugin name="BuoyancyPlugin" filename="libBuoyancyPlugin.so">
       <fluid_density>1000</fluid_density>
       <link name="body">
-        <volume>1</volume>
+      <!-- TODO: calculate volume of ROV -->
+      <!-- TODO: provide center of mass -->
+        <volume>0.0215755</volume>
+        <!-- <volume>0.05</volume> -->
+        <center_of_volume>0 -.135 0</center_of_volume>
       </link>
     </plugin>
+
   </model>
 </sdf>

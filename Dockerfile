@@ -10,11 +10,15 @@ ENV GZWEB_ASSETS ${DIRPATH}/gzweb/http/client/assets
 ENV MODELDIR ${DIRPATH}/models
 
 COPY nautilus_worlds nautilus_worlds
-COPY models models
+# COPY models models
+COPY models ${GZWEB_ASSETS}
 
 COPY setup.sh /usr/share/gazebo/
 
-EXPOSE 8080
+RUN echo ". /usr/share/gazebo/setup.sh" >> /root/.bashrc
 
-RUN echo "source /usr/share/gazebo/setup.sh" >> /root/.bashrc
+RUN . ~/.bashrc && cd ${GZWEB_PATH} && ./deploy.sh -m local
+
 RUN echo "source /opt/ros/noetic/setup.bash" >> /root/.bashrc
+
+EXPOSE 8080

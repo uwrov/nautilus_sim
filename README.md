@@ -27,11 +27,23 @@ docker build -t nautilus_sim .
 docker run -p 8080:8080 -it nautilus_sim
 ```
 
+Bind `src` folder to container (shares the `src` folder)
+
+Windows (Powershell):
+  ```Bash
+  docker run --name sim -p 8080:8080 -it -v ${PWD}/models/nautilus:/root/gzweb/http/client/assets/nautilus -v ${PWD}/nautilus_worlds:/root/nautilus_worlds nautilus_sim 
+  ```
+
+Unix:
+  ```Bash
+  docker run -p 8080:8080 -it -v $(pwd)/src:/root/src nautilus_sim
+  ```
+
 ## Container Usage
 ### Run Gazebo (empty world)
 ```Bash
 Xvfb :1 -screen 0 1600x1200x16 & export DISPLAY=:1.0  # Start a virtual display (makes rendering easier)
-cd gzweb
+cd ~/gzweb
 gzserver --verbose & npm start                        # Start gazebo server and the gzweb interface
 ```
 ### Run Gazebo (underwater world)
@@ -45,6 +57,6 @@ gzserver --verbose underwater.world                   # Start gazebo server
 
 Terminal 2
 ```Bash
-cd gzweb
+cd ~/gzweb
 npm start                                             # Start the web interface
 ```
