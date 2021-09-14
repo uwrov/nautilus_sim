@@ -35,9 +35,17 @@ WORKDIR /root
 
 # install and build gzweb
 RUN git clone https://github.com/osrf/gzweb
+RUN rm -rf /root/gzweb/http/client/assets
+
+COPY models/ /root/gzweb/http/client/assets/
+
 RUN . ~/.bashrc && . /usr/share/gazebo/setup.sh \
    && cd gzweb \
-   && ./deploy.sh -m
+   && ./deploy.sh -m local
+
+RUN mkdir -p /root/catkin_ws/src
+COPY nautilus_worlds catkin_ws/src/nautilus_worlds
+RUN . /opt/ros/noetic/setup.sh && cd /root/catkin_ws && catkin_make
 
 EXPOSE 8080
 

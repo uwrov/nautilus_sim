@@ -21,13 +21,16 @@ catkin_package(
 )
 
 find_package(gazebo REQUIRED)
-
 link_directories(${GAZEBO_LIBRARY_DIRS})
-
 include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS} ${SDFormat_INCLUDE_DIRS})
-
 file (GLOB_RECURSE FILES *.cpp *.h *.hpp)
 
+### Build thruster plugin
 add_library(thruster SHARED src/thruster_manager.cc)
-
 target_link_libraries( thruster ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} )
+
+### Make Python Stuff
+catkin_install_python(PROGRAMS
+  scripts/sample_data.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
