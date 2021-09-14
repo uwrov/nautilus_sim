@@ -31,7 +31,7 @@ Bind `src` folder to container (shares the `src` folder)
 
 Windows (Powershell):
   ```Bash
-  docker run --name sim -p 8080:8080 -it -v ${PWD}/models/nautilus:/root/gzweb/http/client/assets/nautilus -v ${PWD}/nautilus_worlds:/root/nautilus_worlds nautilus_sim 
+  docker run --name sim -p 8080:8080 -it -v ${PWD}/models/nautilus:/root/gzweb/http/client/assets/nautilus -v ${PWD}/nautilus_worlds:/root/catkin_ws/src/nautilus_worlds nautilus_sim 
   ```
 
 Unix:

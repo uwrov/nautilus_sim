@@ -241,5 +241,7 @@
       </link>
     </plugin>
 
+  <plugin name="thruster" filename="libthruster.so"/>
+
   </model>
 </sdf>

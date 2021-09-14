@@ -9,7 +9,6 @@ ENV GZWEB_PATH ${DIRPATH}/gzweb
 ENV GZWEB_ASSETS ${DIRPATH}/gzweb/http/client/assets
 ENV MODELDIR ${DIRPATH}/models
 
-COPY nautilus_worlds nautilus_worlds
 # COPY models models
 COPY models ${GZWEB_ASSETS}
 
@@ -17,8 +16,13 @@ COPY setup.sh /usr/share/gazebo/
 
 RUN echo ". /usr/share/gazebo/setup.sh" >> /root/.bashrc
 
+# remake the base image
 RUN . ~/.bashrc && cd ${GZWEB_PATH} && ./deploy.sh -m local
 
 RUN echo "source /opt/ros/noetic/setup.bash" >> /root/.bashrc
+
+RUN mkdir -p /root/catkin_ws/src
+COPY nautilus_worlds catkin_ws/src/nautilus_worlds
+RUN . /opt/ros/noetic/setup.sh && cd /root/catkin_ws && catkin_make
 
 EXPOSE 8080
