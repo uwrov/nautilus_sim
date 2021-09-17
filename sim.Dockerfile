@@ -43,10 +43,6 @@ RUN . ~/.bashrc && . /usr/share/gazebo/setup.sh \
    && cd gzweb \
    && ./deploy.sh -m local
 
-RUN mkdir -p /root/catkin_ws/src
-COPY nautilus_worlds catkin_ws/src/nautilus_worlds
-RUN . /opt/ros/noetic/setup.sh && cd /root/catkin_ws && catkin_make
-
 EXPOSE 8080
 
 

@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  sim:
+    build: ./
+    image: nautilus_sim
+    container_name: sim
+    ports:
+      - "8080:8080"
+    stdin_open: true
+    tty: true
+    volumes:
+      - type: bind
+        source: ./models/nautilus
+        target: /root/gzweb/http/client/assets/nautilus
+      - type: bind
+        source: ./nautilus_worlds
+        target: /root/catkin_ws/src/nautilus_worlds

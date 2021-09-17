@@ -15,14 +15,16 @@ void ThrusterManager::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
   //
   // Initialize our Gazebo publishers
   //
-  this->gznode_ = transport::NodePtr(new transport::Node());
-  this->gznode_->Init(_parent->GetWorld()->Name());
+  // this->gznode_ = transport::NodePtr(new transport::Node());
+  // this->gznode_->Init(_parent->GetWorld()->Name());
 
-  this->thruster_pubs_ = std::vector<transport::PublisherPtr>(num_thrusters_);
-  for (int i = 0; i < num_thrusters_; i++) {
-    std::string topic_name = "/motor_" + std::string(1, char('A' + i));
-    this->thruster_pubs_[i] = this->gznode_->Advertise<msgs::Int>(topic_name, 1);
-  }
+  // this->thruster_pubs_ = std::vector<transport::PublisherPtr>(num_thrusters_);
+  // for (int i = 0; i < num_thrusters_; i++) {
+  //   std::string topic_name = "/motor_" + std::string(1, char('A' + i));
+  //   this->thruster_pubs_[i] = this->gznode_->Advertise<msgs::Int>(topic_name, 1);
+  // }
+
+  // gather motor links
 
   // bind update function
   this->updateConnection_ = event::Events::ConnectWorldUpdateBegin(
@@ -44,12 +46,16 @@ void ThrusterManager::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
   ROS_INFO("Thruster Manager Initialized");
 }
 
+void ThrusterManager::OnUpdate() {
+  // apply forces on each of the motor links
+}
+
 void ThrusterManager::pwmCallback(const std_msgs::Int16MultiArray::ConstPtr& msg) {
   // ROS_INFO("Received thruster command");
   for (int i = 0; i < this->num_thrusters_; i++) {
     msgs::Int m;
     m.set_data(int(msg->data[i]));
-    this->thruster_pubs_[i]->Publish(m, false);
+    this->thruster_pubs_[i]->Publish(m, true);
   }
 }
 
@@ -70,9 +76,6 @@ void ThrusterManager::sigintHandler(int sig) {
   ros::shutdown();
   sub_thread_ptr_->join();
 }
-
-void ThrusterManager::OnUpdate() {}
-
 
 GZ_REGISTER_MODEL_PLUGIN(ThrusterManager)
 }

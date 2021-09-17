@@ -18,6 +18,8 @@
 #include <vector>
 #include <memory>
 #include <signal.h>
+
+#include "thruster.h"
 /**
  * ROS Subscriber which reads in an array of 6 floats representing
  * pwms to be applied onto T100/T200 motors. Uses a gazebo topic

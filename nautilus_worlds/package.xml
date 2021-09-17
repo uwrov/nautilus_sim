@@ -3,7 +3,7 @@
   <name>nautilus_worlds</name>
   <version>0.0.0</version>
   <description>The nautilus_worlds package. Powers the simulation of nautilus via gazebo,
-               Credit to PalouseRobosub (https://github.com/PalouseRobosub/robosub_simulator)</description>
+               Credit to PalouseRobosub for inspiration (https://github.com/PalouseRobosub/robosub_simulator)</description>
 
   <maintainer email="gunarp@uw.edu">Peter Gunarso</maintainer>
 
