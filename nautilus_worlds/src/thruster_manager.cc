@@ -25,6 +25,13 @@ void ThrusterManager::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
   // }
 
   // gather motor links
+  for (int i = 0; i < this->num_thrusters_; i++) {
+    std::string motor_link_name = "motor_" + std::string(1, char('A' + i));
+    if (i < this->num_t100_)
+      this->thrusters_.push_back(motor_link_name, _parent, 20, true);
+    else
+      this->thrusters_.push_back(motor_link_name, _parent, 40, false);
+  }
 
   // bind update function
   this->updateConnection_ = event::Events::ConnectWorldUpdateBegin(
@@ -48,6 +55,9 @@ void ThrusterManager::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
 
 void ThrusterManager::OnUpdate() {
   // apply forces on each of the motor links
+  for (int i = 0; i < this->num_thrusters_; i++) {
+    this->thrusters_[i].addLinkForce();
+  }
 }
 
 void ThrusterManager::pwmCallback(const std_msgs::Int16MultiArray::ConstPtr& msg) {
