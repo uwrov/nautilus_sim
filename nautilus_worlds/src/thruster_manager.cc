@@ -28,9 +28,9 @@ void ThrusterManager::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
   for (int i = 0; i < this->num_thrusters_; i++) {
     std::string motor_link_name = "motor_" + std::string(1, char('A' + i));
     if (i < this->num_t100_)
-      this->thrusters_.push_back(motor_link_name, _parent, 20, true);
+      this->thrusters_.push_back(Thruster(motor_link_name, _parent, true));
     else
-      this->thrusters_.push_back(motor_link_name, _parent, 40, false);
+      this->thrusters_.push_back(Thruster(motor_link_name, _parent, false));
   }
 
   // bind update function
@@ -56,16 +56,19 @@ void ThrusterManager::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
 void ThrusterManager::OnUpdate() {
   // apply forces on each of the motor links
   for (int i = 0; i < this->num_thrusters_; i++) {
-    this->thrusters_[i].addLinkForce();
+    this->thrusters_.at(i).addLinkForce();
   }
 }
 
 void ThrusterManager::pwmCallback(const std_msgs::Int16MultiArray::ConstPtr& msg) {
   // ROS_INFO("Received thruster command");
+  // for (int i = 0; i < this->num_thrusters_; i++) {
+  //   msgs::Int m;
+  //   m.set_data(int(msg->data[i]));
+  //   this->thruster_pubs_[i]->Publish(m, true);
+  // }
   for (int i = 0; i < this->num_thrusters_; i++) {
-    msgs::Int m;
-    m.set_data(int(msg->data[i]));
-    this->thruster_pubs_[i]->Publish(m, true);
+    this->thrusters_.at(i).setPWM(msg->data[i]);
   }
 }
 

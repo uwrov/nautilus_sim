@@ -6,6 +6,10 @@
 #include <gazebo/gazebo.hh>
 #include <ignition/math.hh>
 
+#define PWM_ZERO 1500
+#define PWM_MAX 2000
+#define PWM_MIN 1000
+
 namespace gazebo
 {
   /**
@@ -20,21 +24,40 @@ namespace gazebo
        * @param max_force Link to thruster
        */
       Thruster(const std::string name, physics::ModelPtr parent,
-               double max_force, bool t100);
+               bool t100);
       
       /**
        * Simulate applying pwm onto thruster
        * Applies a force onto the body of nautilus, not the thurster itself
        */
-      void addLinkForce(int pwm);
+      void addLinkForce();
+
+      /**
+       *  Set the pwm of the thruster 
+       */
+      void setPWM(int pwm);
+
     private:
-      double current_force_;
-      const double max_force_;
+      int pwm_;
+
+      // Taken from blue robotics for for/rev max thrust,
+      // converted to N from kg f
+      // not a pp directive because these are computed
+      const double t100_for_max_ = 2.36 * 9.8;
+      const double t100_rev_max_ = 1.85 * 9.8;
+      const double t200_for_max_ = 5.25 * 9.8;
+      const double t200_rev_max_ = 4.1 * 9.8;
+
+      double slopeForward;
+      double slopeReverse;
+
       const std::string name_;
       bool t100_;
       physics::LinkPtr link_ptr_;
       physics::LinkPtr body_ptr_;
-  }
+
+      double pwmToForce(int pwm);
+  };
 }
 
 #endif // THRUSTER_H

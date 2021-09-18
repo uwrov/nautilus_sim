@@ -41,7 +41,7 @@ class ThrusterManager : public ModelPlugin {
     std::vector<Thruster> thrusters_;
 
     int num_thrusters_ = 6;
-    int num_t100_ = 4
+    int num_t100_ = 4;
 
     ros::Subscriber thruster_sub_;
     ros::Duration update_time_;

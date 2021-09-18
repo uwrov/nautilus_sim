@@ -26,7 +26,7 @@ include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO
 file (GLOB_RECURSE FILES *.cpp *.h *.hpp)
 
 ### Build thruster plugin
-add_library(thruster SHARED src/thruster_manager.cc)
+add_library(thruster SHARED src/thruster_manager.cc src/thruster.cc)
 target_link_libraries( thruster ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} )
 
 ### Make Python Stuff
