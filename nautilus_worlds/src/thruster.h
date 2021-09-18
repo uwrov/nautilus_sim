@@ -44,10 +44,12 @@ namespace gazebo
       // converted to N from kg f
       // not a pp directive because these are computed
       const double t100_for_max_ = 2.36 * 9.8;
-      const double t100_rev_max_ = 1.85 * 9.8;
+      const double t100_rev_max_ = -1.85 * 9.8;
       const double t200_for_max_ = 5.25 * 9.8;
-      const double t200_rev_max_ = 4.1 * 9.8;
+      const double t200_rev_max_ = -4.1 * 9.8;
 
+      double forwardMax;
+      double reverseMax;
       double slopeForward;
       double slopeReverse;
 

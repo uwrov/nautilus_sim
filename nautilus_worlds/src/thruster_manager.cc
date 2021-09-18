@@ -62,11 +62,6 @@ void ThrusterManager::OnUpdate() {
 
 void ThrusterManager::pwmCallback(const std_msgs::Int16MultiArray::ConstPtr& msg) {
   // ROS_INFO("Received thruster command");
-  // for (int i = 0; i < this->num_thrusters_; i++) {
-  //   msgs::Int m;
-  //   m.set_data(int(msg->data[i]));
-  //   this->thruster_pubs_[i]->Publish(m, true);
-  // }
   for (int i = 0; i < this->num_thrusters_; i++) {
     this->thrusters_.at(i).setPWM(msg->data[i]);
   }
@@ -76,7 +71,7 @@ void ThrusterManager::subThread() {
   ROS_INFO("SUB THREAD CREATED");
   ros::Subscriber sub = this->nh_->subscribe("/nautilus/motors/pwm", 1,
                                              &ThrusterManager::pwmCallback, this);
-  ros::Rate r(10);
+  ros::Rate r(60);
 
   while (ros::ok()) {
     ros::spinOnce();

@@ -7,7 +7,7 @@ from std_msgs.msg import Int16MultiArray
 dims = [MultiArrayDimension('data', 6, 16)]
 layout = MultiArrayLayout(dim=dims, data_offset=0)
 
-data = [1 for _ in range(6)]
+data = [1500 for _ in range(6)]
 msg = Int16MultiArray(layout=layout, data=data)
 print(msg)
 
