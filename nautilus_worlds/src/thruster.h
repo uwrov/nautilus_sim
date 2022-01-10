@@ -42,9 +42,12 @@ namespace gazebo
 
       // Taken from blue robotics for for/rev max thrust,
       // converted to N from kg f
-      // not a pp directive because these are computed
+
+      https://web.archive.org/web/20171019111512/http://bluerobotics.com/store/thrusters/t100-thruster/
       const double t100_for_max_ = 2.36 * 9.8;
       const double t100_rev_max_ = -1.85 * 9.8;
+
+      // https://bluerobotics.com/store/thrusters/t100-t200-thrusters/t200-thruster-r2-rp/
       const double t200_for_max_ = 5.25 * 9.8;
       const double t200_rev_max_ = -4.1 * 9.8;
 
