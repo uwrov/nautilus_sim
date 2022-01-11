@@ -12,18 +12,6 @@ void ThrusterManager::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
   num_thrusters_ = 6;
   ROS_INFO("Initializing Thruster Manager");
 
-  //
-  // Initialize our Gazebo publishers
-  //
-  // this->gznode_ = transport::NodePtr(new transport::Node());
-  // this->gznode_->Init(_parent->GetWorld()->Name());
-
-  // this->thruster_pubs_ = std::vector<transport::PublisherPtr>(num_thrusters_);
-  // for (int i = 0; i < num_thrusters_; i++) {
-  //   std::string topic_name = "/motor_" + std::string(1, char('A' + i));
-  //   this->thruster_pubs_[i] = this->gznode_->Advertise<msgs::Int>(topic_name, 1);
-  // }
-
   // gather motor links
   for (int i = 0; i < this->num_thrusters_; i++) {
     std::string motor_link_name = "motor_" + std::string(1, char('A' + i));

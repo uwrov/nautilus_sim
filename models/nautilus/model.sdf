@@ -179,7 +179,7 @@
     </link>
 
     <link name="motor_E">
-      <pose relative_to="body">.165 -.135 -.02 0 0 0</pose>
+      <pose relative_to="body">.165 -.135 -.02 3.14 0 0</pose>
       
       <inertial>
         <mass>0.165792</mass>
@@ -205,7 +205,7 @@
     </link>
 
     <link name="motor_F">
-      <pose relative_to="body">-.165 -.135 -.02 0 0 0</pose>
+      <pose relative_to="body">-.165 -.135 -.02 3.14 0 0</pose>
 
       <inertial>
         <mass>0.165792</mass>

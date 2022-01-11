@@ -19,7 +19,8 @@ void Thruster::addLinkForce() {
   // convert pwm into a force, then apply that force onto the link
   double f = this->pwmToForce(this->pwm_);
 
-  // force gets applied at the "top" of the thruster
+  // thrusters are simulated with cylinders, force
+  // is applied on the "bottom" (when upright neutral) normal face
   ignition::math::Vector3d force = ignition::math::Vector3d(0, 0, f);
 
   this->link_ptr_->AddLinkForce(force);
@@ -36,9 +37,6 @@ double Thruster::pwmToForce(int pwm) {
   if (pwm < PWM_ZERO) {
     // map (PWM_MIN, PWM_ZERO) onto (reverseMax, 0)
     ret = this->reverseMax + this->slopeReverse * (pwm - PWM_MIN);
-
-    // flip to go backwards
-    ret *= -1.0;
   }
   else {
     // map (PWM_ZERO, PWM_MAX) onto (0, forwardMax)
