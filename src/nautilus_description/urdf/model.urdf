@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<robot name="nautilus" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Constants -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:include filename="$(find nautilus_description)/urdf/nautilus.gazebo"/>
+
+  <!-- Generic Thruster Definition -->
+  <xacro:macro name="thrustermacro" params="thrusterName x y z r p yaw">
+    <joint name="${thrusterName}_joint" type="fixed">
+      <parent link="body"/>
+      <child link="${thrusterName}"/>
+    </joint>
+
+    <link name="${thrusterName}">
+      <pose relative_to="body">${x} ${y} ${z} ${r} ${p} ${yaw}</pose>
+
+      <inertial>
+        <mass>0.165792</mass>
+        <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      </inertial>
+
+      <collision name="${thrusterName}_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <visual name="${thrusterName}_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.04</radius>
+            <length>0.033</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+  </xacro:macro>
+
+  <!-- Begin defining the ROV -->
+  <link name="body">
+    <inertial>
+      <origin xyz="0.0 -.135 0.0" rpy="0.0 0.0 0.0"/>
+      <!-- TOOD: get a better mass estimate -->
+      <mass value="21.576"/>
+     <inertia ixx="0.083" ixy="0.0" ixz="0.0" iyy="0.083" iyz="0.0" izz="0.0"/>
+    </inertial>
+
+    <collision name="body_collision">
+      <origin xyz="0.0 -.135 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size=".29 .31 .24"/>
+      </geometry>
+    </collision>
+
+    <visual name="body_visual">
+      <origin xyz="0.0 -.135 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="$(find nautilus_description)/meshes/nautilus.dae" scale="1.0"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Thruster Definition -->
+  <xacro:thrustermacro thrusterName="motor_A" x=".16" y="-.34" z="-.02" r="-${pi/2}" p="0.0" yaw="-${pi/4}"/>
+  <xacro:thrustermacro thrusterName="motor_B" x="-.16" y="-.34" z="-.02" r="-${pi/2}" p="0.0" yaw="${pi/4}"/>
+  <xacro:thrustermacro thrusterName="motor_C" x=".16" y=".07" z="-.02" r="-${pi/2}" p="0.0" yaw="${pi/4}"/>
+  <xacro:thrustermacro thrusterName="motor_D" x="-.16" y=".07" z="-.02" r="-${pi/2}" p="0.0" yaw="-${pi/4}"/>
+  <xacro:thrustermacro thrusterName="motor_E" x=".165" y="-.135" z="-.02" r="${pi}" p="0.0" yaw="0.0"/>
+  <xacro:thrustermacro thrusterName="motor_F" x="-.165" y="-.135" z="-.02" r="${pi}" p="0.0" yaw="0.0"/>
+
+</robot>
