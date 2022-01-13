@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<robot name="nautilus" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Constants -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="camera_size" value=".05"/>
+  <xacro:property name="width" value=".29"/>
+  <xacro:property name="length" value=".31"/>
+  <xacro:property name="height" value=".24"/>
+
+  <xacro:property name="thruster_radius" value=".04"/>
+  <xacro:property name="thruster_height" value=".033"/>
+
+
+  <!-- Begin defining the ROV -->
+  <link name="body">
+    <inertial>
+      <origin xyz="0.0 -.135 0.0" rpy="0.0 0.0 0.0"/>
+      <!-- TOOD: get a better mass estimate -->
+      <mass value="21.576"/>
+     <inertia ixx="0.083" ixy="0.0" ixz="0.0" iyy="0.083" iyz="0.0" izz="0.0"/>
+    </inertial>
+
+    <collision name="body">
+      <origin xyz="0.0 -.135 0.0"/>
+      <geometry>
+        <box size="${width} ${length} ${height}"/>
+      </geometry>
+    </collision>
+
+    <visual name="body">
+      <geometry>
+        <mesh filename="model://nautilus/meshes/nautilus.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Generic Definitions -->
+  <xacro:macro name="thrusters" params="thrusterName x y z r p yaw">
+    <link name="${thrusterName}">
+      <inertial>
+        <mass value="${PI * thruster_radius * thruster_radius * thruster_height * 1000}"/>
+        <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      </inertial>
+
+      <collision name="${thrusterName}">
+        <geometry>
+          <cylinder radius="${thruster_radius}" length="${thruster_height}"/>
+        </geometry>
+      </collision>
+
+      <visual name="${thrusterName}">
+        <geometry>
+          <cylinder radius="${thruster_radius}" length="${thruster_height}"/>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint name="${thrusterName}_joint" type="fixed">
+      <origin xyz="${x} ${y} ${z}" rpy="${r} ${p} ${yaw}"/>
+      <parent link="body"/>
+      <child link="${thrusterName}"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:macro name="cameras" params="cameraName x y z r p yaw">
+    
+    <link name="${cameraName}">
+      <inertial>
+        <mass value="${camera_size * camera_size * camera_size * 1000}"/>
+        <inertia ixx="1e-4" ixy="0.0" ixz="0.0" iyy="1e-4" iyz="0.0" izz="1e-4"/>
+      </inertial>
+      
+      <visual name="${cameraName}">
+        <geometry>
+          <box size="${camera_size} ${camera_size} ${camera_size}"/>
+        </geometry>
+      </visual>
+
+      <collision name="${cameraName}">
+        <geometry>
+          <box size="${camera_size} ${camera_size} ${camera_size}"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${cameraName}_joint" type="fixed">
+      <origin xyz="${x} ${y} ${z}" rpy="${r} ${p} ${yaw}"/>
+      <parent link="body"/>
+      <child link="${cameraName}"/>
+    </joint>
+
+  </xacro:macro>
+
+  <!-- Instantiations -->
+  <!-- current model has the the directions -->
+  <!-- x+ -> left -->
+  <!-- y+ -> back -->
+  <!-- z+ -> up -->
+  <xacro:thrusters thrusterName="motor_A" x=".16" y="-.34" z="-.02" r="-${pi/2}" p="0.0" yaw="-${pi/4}"/>
+  <xacro:thrusters thrusterName="motor_B" x="-.16" y="-.34" z="-.02" r="-${pi/2}" p="0.0" yaw="${pi/4}"/>
+  <xacro:thrusters thrusterName="motor_C" x=".16" y=".07" z="-.02" r="-${pi/2}" p="0.0" yaw="${pi/4}"/>
+  <xacro:thrusters thrusterName="motor_D" x="-.16" y=".07" z="-.02" r="-${pi/2}" p="0.0" yaw="-${pi/4}"/>
+  <xacro:thrusters thrusterName="motor_E" x=".165" y="-.135" z="-.02" r="${pi}" p="0.0" yaw="0.0"/>
+  <xacro:thrusters thrusterName="motor_F" x="-.165" y="-.135" z="-.02" r="${pi}" p="0.0" yaw="0.0"/>
+
+  <xacro:cameras cameraName="camera1" x="0.0" y="-0.32" z="0.0" r="0.0" p="0.0" yaw="0.0"/>
+  <xacro:cameras cameraName="camera2" x="0.0" y="-0.20" z="-.125" r="0.0" p="0.0" yaw="0.0"/>
+
+  <!-- Sensor Definitions -->
+  <gazebo>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>body</bodyName>
+      <topicName>imu</topicName>
+      <serviceName>imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+    </plugin>
+  </gazebo>
+
+  <!-- Plugins -->
+  <xacro:include filename="$(find nautilus_description)/urdf/nautilus.gazebo"/>
+
+</robot>

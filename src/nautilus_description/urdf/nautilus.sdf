@@ -1,0 +1,572 @@
+<sdf version='1.7'>
+  <model name='nautilus'>
+    <link name='body'>
+      <inertial>
+        <pose>0 -0.135 0 0 -0 0</pose>
+        <mass>21.576</mass>
+        <inertia>
+          <ixx>0.083</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.083</iyy>
+          <iyz>0</iyz>
+          <izz>0</izz>
+        </inertia>
+      </inertial>
+      <collision name='body_collision'>
+        <pose>0 -0.135 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.29 0.31 0.24</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='body_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://nautilus/meshes/nautilus.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='camera1_joint' type='fixed'>
+      <pose relative_to='body'>0 -0.32 0 0 -0 0</pose>
+      <parent>body</parent>
+      <child>camera1</child>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='camera1'>
+      <pose relative_to='camera1_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.125</mass>
+        <inertia>
+          <ixx>0.0001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.0001</iyy>
+          <iyz>0</iyz>
+          <izz>0.0001</izz>
+        </inertia>
+      </inertial>
+      <collision name='camera1_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.05</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='camera1_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.05</size>
+          </box>
+        </geometry>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <sensor name='camera1' type='camera'>
+        <update_rate>30</update_rate>
+        <always_on>1</always_on>
+        <camera name='front'>
+          <horizontal_fov>1.39626</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>10</far>
+          </clip>
+        </camera>
+        <plugin name='camera_controller' filename='libgazebo_ros_camera.so'>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <cameraName>nautilus/camera1</cameraName>
+          <imageTopicName>/nautilus/camera1/image_raw</imageTopicName>
+          <cameraInfoTopicName>/nautilus/camera1/camera_info</cameraInfoTopicName>
+        </plugin>
+      </sensor>
+    </link>
+    <joint name='camera2_joint' type='fixed'>
+      <pose relative_to='body'>0 -0.2 -0.125 0 -0 0</pose>
+      <parent>body</parent>
+      <child>camera2</child>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='camera2'>
+      <pose relative_to='camera2_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.125</mass>
+        <inertia>
+          <ixx>0.0001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.0001</iyy>
+          <iyz>0</iyz>
+          <izz>0.0001</izz>
+        </inertia>
+      </inertial>
+      <collision name='camera2_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.05</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='camera2_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.05</size>
+          </box>
+        </geometry>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <self_collide>0</self_collide>
+      <sensor name='camera2' type='camera'>
+        <update_rate>30</update_rate>
+        <always_on>1</always_on>
+        <camera name='front'>
+          <horizontal_fov>1.39626</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>10</far>
+          </clip>
+        </camera>
+        <plugin name='camera_controller' filename='libgazebo_ros_camera.so'>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>1</visualize>
+          <cameraName>nautilus/camera2</cameraName>
+          <imageTopicName>/nautilus/camera2/image_raw</imageTopicName>
+          <cameraInfoTopicName>/nautilus/camera2/camera_info</cameraInfoTopicName>
+        </plugin>
+      </sensor>
+    </link>
+    <joint name='motor_A_joint' type='fixed'>
+      <pose relative_to='body'>0.16 -0.34 -0.02 -1.5708 -0 -0.785398</pose>
+      <parent>body</parent>
+      <child>motor_A</child>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='motor_A'>
+      <pose relative_to='motor_A_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.165876</mass>
+        <inertia>
+          <ixx>0.4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.4</iyy>
+          <iyz>0</iyz>
+          <izz>0.2</izz>
+        </inertia>
+      </inertial>
+      <collision name='motor_A_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.033</length>
+            <radius>0.04</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='motor_A_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.033</length>
+            <radius>0.04</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='motor_B_joint' type='fixed'>
+      <pose relative_to='body'>-0.16 -0.34 -0.02 -1.5708 0 0.785398</pose>
+      <parent>body</parent>
+      <child>motor_B</child>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='motor_B'>
+      <pose relative_to='motor_B_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.165876</mass>
+        <inertia>
+          <ixx>0.4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.4</iyy>
+          <iyz>0</iyz>
+          <izz>0.2</izz>
+        </inertia>
+      </inertial>
+      <collision name='motor_B_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.033</length>
+            <radius>0.04</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='motor_B_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.033</length>
+            <radius>0.04</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='motor_C_joint' type='fixed'>
+      <pose relative_to='body'>0.16 0.07 -0.02 -1.5708 0 0.785398</pose>
+      <parent>body</parent>
+      <child>motor_C</child>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='motor_C'>
+      <pose relative_to='motor_C_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.165876</mass>
+        <inertia>
+          <ixx>0.4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.4</iyy>
+          <iyz>0</iyz>
+          <izz>0.2</izz>
+        </inertia>
+      </inertial>
+      <collision name='motor_C_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.033</length>
+            <radius>0.04</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='motor_C_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.033</length>
+            <radius>0.04</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='motor_D_joint' type='fixed'>
+      <pose relative_to='body'>-0.16 0.07 -0.02 -1.5708 -0 -0.785398</pose>
+      <parent>body</parent>
+      <child>motor_D</child>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='motor_D'>
+      <pose relative_to='motor_D_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.165876</mass>
+        <inertia>
+          <ixx>0.4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.4</iyy>
+          <iyz>0</iyz>
+          <izz>0.2</izz>
+        </inertia>
+      </inertial>
+      <collision name='motor_D_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.033</length>
+            <radius>0.04</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='motor_D_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.033</length>
+            <radius>0.04</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='motor_E_joint' type='fixed'>
+      <pose relative_to='body'>0.165 -0.135 -0.02 3.14159 -0 0</pose>
+      <parent>body</parent>
+      <child>motor_E</child>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='motor_E'>
+      <pose relative_to='motor_E_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.165876</mass>
+        <inertia>
+          <ixx>0.4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.4</iyy>
+          <iyz>0</iyz>
+          <izz>0.2</izz>
+        </inertia>
+      </inertial>
+      <collision name='motor_E_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.033</length>
+            <radius>0.04</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='motor_E_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.033</length>
+            <radius>0.04</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='motor_F_joint' type='fixed'>
+      <pose relative_to='body'>-0.165 -0.135 -0.02 3.14159 -0 0</pose>
+      <parent>body</parent>
+      <child>motor_F</child>
+      <axis>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.2</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='motor_F'>
+      <pose relative_to='motor_F_joint'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.165876</mass>
+        <inertia>
+          <ixx>0.4</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.4</iyy>
+          <iyz>0</iyz>
+          <izz>0.2</izz>
+        </inertia>
+      </inertial>
+      <collision name='motor_F_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.033</length>
+            <radius>0.04</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='motor_F_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.033</length>
+            <radius>0.04</radius>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+    <plugin name='imu_plugin' filename='libgazebo_ros_imu.so'>
+      <alwaysOn>1</alwaysOn>
+      <bodyName>base_footprint</bodyName>
+      <topicName>imu</topicName>
+      <serviceName>imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+    </plugin>
+    <plugin name='BuoyancyPlugin' filename='libBuoyancyPlugin.so'>
+      <fluid_density>1000</fluid_density>
+      <link name='body'>
+        <volume>0.021576</volume>
+        <center_of_volume>0 -.135 0</center_of_volume>
+      </link>
+    </plugin>
+    <static>0</static>
+    <plugin name='thruster' filename='libthruster.so'/>
+  </model>
+</sdf>

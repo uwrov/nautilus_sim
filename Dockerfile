@@ -2,7 +2,9 @@
 FROM uwrov/sim_base:latest
 
 RUN apt-get update && apt-get install ros-noetic-xacro \
-  ros-noetic-gazebo-ros-pkgs
+  ros-noetic-gazebo-ros-pkgs \
+  ros-noetic-urdf \
+  liburdfdom-tools
 
 # switch to /root
 ENV DIRPATH /root
