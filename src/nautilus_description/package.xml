@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <name>nautilus_description</name>
+  <version>0.0.0</version>
+  <description>The nautilus_description package</description>
+
+  <maintainer email="uwrov@uw.edu">Dave Coleman</maintainer>
+
+  <license>TODO</license>
+
+  <author email="peter@gunar.so">Peter Gunarso</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  </export>
+</package>
