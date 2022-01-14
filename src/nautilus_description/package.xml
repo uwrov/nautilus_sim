@@ -4,7 +4,11 @@
   <version>0.0.0</version>
   <description>The nautilus_description package</description>
 
-  <author email="uwrov@uw.edu">Peter Gunarso</author>
+  <maintainer email="uwrov@uw.edu">Dave Coleman</maintainer>
+
+  <license>TODO</license>
+
+  <author email="peter@gunar.so">Peter Gunarso</author>
 
   <buildtool_depend>catkin</buildtool_depend>
 
