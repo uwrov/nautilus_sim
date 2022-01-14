@@ -34,3 +34,9 @@ catkin_install_python(PROGRAMS
   scripts/sample_data.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
+install(DIRECTORY launch
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+
+install(PROGRAMS scripts/launch_web.bash
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})

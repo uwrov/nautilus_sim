@@ -4,10 +4,6 @@
   <version>0.0.0</version>
   <description>The nautilus_description package</description>
 
-  <maintainer email="davetcoleman@gmail.com">Dave Coleman</maintainer>
-
-  <license>BSD</license>
-
   <author email="uwrov@uw.edu">Peter Gunarso</author>
 
   <buildtool_depend>catkin</buildtool_depend>

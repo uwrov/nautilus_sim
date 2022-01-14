@@ -35,7 +35,11 @@ void ThrusterManager::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf) {
 
   // start a new thread for the subscriber to live in
   sub_thread_ptr_.reset(new std::thread(&ThrusterManager::subThread, this));
-  signal(SIGINT, &ThrusterManager::sigintHandler);
+  
+  // handling a sigint might override gazebo's own cleanup stuff
+  // replacing it with our own causes a hang on sigint instead
+  // of a good cleanup
+  // signal(SIGINT, &ThrusterManager::sigintHandler);
 
   this->update_time_ = ros::Duration(1.0 / 10.0);
   ROS_INFO("Thruster Manager Initialized");
@@ -61,7 +65,7 @@ void ThrusterManager::subThread() {
                                              &ThrusterManager::pwmCallback, this);
   ros::Rate r(60);
 
-  while (ros::ok()) {
+  while (ros::ok() || !ros::isShuttingDown()) {
     ros::spinOnce();
     r.sleep();
   }

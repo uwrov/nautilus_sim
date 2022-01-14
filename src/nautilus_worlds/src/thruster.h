@@ -13,7 +13,7 @@
 namespace gazebo
 {
   /**
-   * Thruster abstraction class
+   * Thruster abstraction class, used by the ThrusterManager class.
    */
   class Thruster {
     public:

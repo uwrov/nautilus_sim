@@ -4,59 +4,73 @@ ROS Packages for Nautilus Simulation
 # Usage
 Make sure you have docker installed and have access to [nautilus_surface](https://github.com/uwrov/nautilus_surface).
 
-## Container Setup
-### Build the Base Simulation Image Locally (Optional)
-Only need to do this if you're making changes to the core set of packages being used in the simulator. Note that this can take up to an hour to finish.
-```
-docker build -t uwrov/sim_base -f sim.Dockerfile .
-```
-
-### Push updates of base image to docker hub
-Make sure you have access to the repo, and then:
-```
-docker push uwrov/sim_base:latest
-```
-
-### Build the Working Image
-```Bash
-docker build -t nautilus_sim .
-```
-
-### Run the Container
-```Bash
-docker run -p 8080:8080 -it nautilus_sim
-```
-
-Bind `src` folder to container (shares the `src` folder)
-
-Windows (Powershell):
-  ```Bash
-  docker run --name sim -p 8080:8080 -it -v ${PWD}/models/nautilus:/root/gzweb/http/client/assets/nautilus -v ${PWD}/nautilus_worlds:/root/catkin_ws/src/nautilus_worlds nautilus_sim 
-  ```
-
-Unix:
-  ```Bash
-  docker run -p 8080:8080 -it -v $(pwd)/src:/root/src nautilus_sim
-  ```
-
 ## Container Usage
-### Run Gazebo (empty world)
-```Bash
-Xvfb :1 -screen 0 1600x1200x16 & export DISPLAY=:1.0  # Start a virtual display (makes rendering easier)
-cd ~/gzweb
-gzserver --verbose & npm start                        # Start gazebo server and the gzweb interface
+### Build Environment
 ```
-### Run Gazebo (underwater world)
-Terminal 1
-```Bash
-Xvfb :1 -screen 0 1600x1200x16 & export DISPLAY=:1.0  # Start a virtual display (makes rendering easier)
-cd nautilus_worlds/worlds
-source /usr/share/gazebo/setup.sh                     # Get our models in gazebo
-gzserver --verbose underwater.world                   # Start gazebo server 
+docker-compose -f local-compose.yaml --profile sim up --build
 ```
 
-Terminal 2
-```Bash
-cd ~/gzweb
-npm start                                             # Start the web interface
+Or, if you don't want to rebuild your container
+
 ```
+docker-compose -f local-compose.yaml --profile sim up
+```
+
+### Running with roslaunch
+Start up the containers with docker compose then run this command on the surface container
+```
+roslaunch nautilus_launch sim.launch
+```
+
+### Running with Individual Commands
+0. Launch ROS on the surface container
+  ```
+  roscore
+  ```
+
+  or, if you want the surface code
+
+  ```
+  roslaunch nautilus_launch system.launch
+  ```
+
+  The rest of the commands all take place in the sim container.
+1. Start gzserver (in it's own shell)
+  ```
+  roscd nautilus_worlds/worlds && rosrun gazebo_ros gzserver underwater.world --verbose
+  ```
+
+2. Start gzweb (in it's own shell)
+  ```
+  cd /root/gzweb && npm start
+  ```
+
+3. Compile your URDF
+  ```
+  roscd nautilus_description/urdf && xacro nautilus.urdf.xacro > nautilus.urdf
+  ```
+
+4. Spawn your URDF
+  ```
+  roscd nautlius_description/urdf && rosrun gazebo_ros spawn_model -f nautilus.urdf -urdf -model nautilus -z 2
+  ```
+  This spawns the post-processed xacro file in gazebo. Gazebo will implictly convert from `urdf` to `sdf` at this time, if this step does not work then run `check_urdf <(xacro nautilus.urdf.xacro)` and see if there are any errors.
+
+## Overview
+This is a highly portable simulation of UWROV's ROV. It's capable of being used as a stand-in for actual hardware, and can give a rough idea of how our ROV might interact with the real world.
+
+### nautilus_description
+This package contains the physical description of the ROV, some key files to pay attention to:
+- `urdf/nautilus.urdf.xacro`
+  - A macro file which contains the physical definition of the ROV. Changes to motor layout or physical measurements should happen here.
+- `urdf/nautilus.gazebo`
+  - Another macro file which contains the plugin and sensor data which interacts with the ROV.
+- `meshes/nautilus.dae`
+  - Model of the ROV, used for visuals
+
+### nautilus_worlds
+Contains the world information and any custom plugins we write:
+- `worlds/underwater.world`
+  - A sdf file containing the definition of the world the ROV inhabits. Change or copy this file if you need to add any props in.
+- `src/`
+  - Contains all the custom plugins which power the simulation. The thruster managing code is here.
