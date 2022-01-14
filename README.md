@@ -1,6 +1,8 @@
 # nautluis_sim
 ROS Packages for Nautilus Simulation
 
+![Simulator on the left window, UI and terminal on the right windows](https://github.com/uwrov/nautilus_sim/blob/main/desktop.png?raw=true)
+
 # Usage
 Make sure you have docker installed and have access to [nautilus_surface](https://github.com/uwrov/nautilus_surface).
 
@@ -17,9 +19,14 @@ docker-compose -f local-compose.yaml --profile sim up
 ```
 
 ### Running with roslaunch
-Start up the containers with docker compose then run this command on the surface container
+Start up the containers with docker compose then run this command on the surface container. Open the UI on http://localhost:3000 to enable controller input (works best on chrome).
 ```
 roslaunch nautilus_launch sim.launch
+```
+
+Then, if you want the visualization of the sim through gzweb (on http://localhost:8080), run the following in the sim container
+```
+rosrun nautilus_worlds launch_web.bash
 ```
 
 ### Running with Individual Commands
