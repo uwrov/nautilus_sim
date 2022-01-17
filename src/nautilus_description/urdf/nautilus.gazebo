@@ -7,9 +7,9 @@
         <link name="body">
         <!-- TODO: calculate volume of ROV -->
         <!-- TODO: provide center of mass -->
-          <volume>0.021576</volume>
+          <volume>0.060177</volume>
           <!-- <volume>0.05</volume> -->
-          <center_of_volume>0 -.135 0</center_of_volume>
+          <center_of_volume>0 0 0</center_of_volume>
         </link>
       </plugin>
   </gazebo>

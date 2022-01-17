@@ -14,22 +14,22 @@
   <!-- Begin defining the ROV -->
   <link name="body">
     <inertial>
-      <origin xyz="0.0 -.135 0.0" rpy="0.0 0.0 0.0"/>
+      <origin xyz="0 0 0" rpy="0.0 0.0 0.0"/>
       <!-- TOOD: get a better mass estimate -->
-      <mass value="21.576"/>
+      <mass value="60.177"/>
      <inertia ixx="0.083" ixy="0.0" ixz="0.0" iyy="0.083" iyz="0.0" izz="0.0"/>
     </inertial>
 
     <collision name="body">
-      <origin xyz="0.0 -.135 0.0"/>
+      <origin xyz="0 0 0"/>
       <geometry>
-        <box size="${width} ${length} ${height}"/>
+        <mesh filename="model://nautilus/meshes/nautilus_sim.dae"/>
       </geometry>
     </collision>
 
     <visual name="body">
       <geometry>
-        <mesh filename="model://nautilus/meshes/nautilus.dae"/>
+        <mesh filename="model://nautilus/meshes/nautilus_sim.dae"/>
       </geometry>
     </visual>
   </link>
