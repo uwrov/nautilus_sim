@@ -59,7 +59,7 @@ rosrun nautilus_worlds launch_web.bash
 
 4. Spawn your URDF
   ```
-  roscd nautlius_description/urdf && rosrun gazebo_ros spawn_model -f nautilus.urdf -urdf -model nautilus -z 2
+  roscd nautilus_description/urdf && rosrun gazebo_ros spawn_model -f nautilus.urdf -urdf -model nautilus -z 2
   ```
   This spawns the post-processed xacro file in gazebo. Gazebo will implictly convert from `urdf` to `sdf` at this time, if this step does not work then run `check_urdf <(xacro nautilus.urdf.xacro)` and see if there are any errors.
 
