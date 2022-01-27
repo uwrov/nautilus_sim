@@ -30,7 +30,8 @@ rosrun nautilus_worlds launch_web.bash
 ```
 
 ### Running with Individual Commands
-0. Launch ROS on the surface container
+
+**0. Launch ROS on the surface container**
   ```
   roscore
   ```
@@ -42,26 +43,49 @@ rosrun nautilus_worlds launch_web.bash
   ```
 
   The rest of the commands all take place in the sim container.
-1. Start gzserver (in it's own shell)
+
+**1. Start gzserver (in it's own shell)**
   ```
   roscd nautilus_worlds/worlds && rosrun gazebo_ros gzserver underwater.world --verbose
   ```
 
-2. Start gzweb (in it's own shell)
+**2. Start gzweb (in it's own shell)**
   ```
   cd /root/gzweb && npm start
   ```
 
-3. Compile your URDF
+**3. Compile your URDF**
+
+  For Nautilus
   ```
   roscd nautilus_description/urdf && xacro nautilus.urdf.xacro > nautilus.urdf
   ```
 
-4. Spawn your URDF
+  For ROV 22
+  ```
+  roscd nautilus_description/urdf && xacro rov22.urdf.xacro > rov22.urdf
+  ```
+
+**4. Spawn your URDF**
+
+  For Nautilus
   ```
   roscd nautilus_description/urdf && rosrun gazebo_ros spawn_model -f nautilus.urdf -urdf -model nautilus -z 2
   ```
+
+  For ROV 22
+  ```
+  roscd nautilus_description/urdf && rosrun gazebo_ros spawn_model -f rov22.urdf -urdf -model rov22 -z 2
+  ```
+
   This spawns the post-processed xacro file in gazebo. Gazebo will implictly convert from `urdf` to `sdf` at this time, if this step does not work then run `check_urdf <(xacro nautilus.urdf.xacro)` and see if there are any errors.
+
+**5. (Alternativately) compile and spawn at the same time**
+
+For ROV 22
+```
+roscd nautilus_description/urdf && xacro rov22.urdf.xacro > rov22.urdf && rosrun gazebo_ros spawn_model -f rov22.urdf -urdf -model rov22 -z 2
+```
 
 ## Overview
 This is a highly portable simulation of UWROV's ROV. It's capable of being used as a stand-in for actual hardware, and can give a rough idea of how our ROV might interact with the real world.
