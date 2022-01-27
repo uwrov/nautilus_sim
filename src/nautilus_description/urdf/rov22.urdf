@@ -71,48 +71,6 @@
     <parent link="body"/>
     <child link="motor_B"/>
   </joint>
-  <link name="motor_C">
-    <inertial>
-      <mass value="0.20993692907613795"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
-    </inertial>
-    <collision name="motor_C">
-      <geometry>
-        <cylinder length="0.033" radius="0.045"/>
-      </geometry>
-    </collision>
-    <visual name="motor_C">
-      <geometry>
-        <cylinder length="0.033" radius="0.045"/>
-      </geometry>
-    </visual>
-  </link>
-  <joint name="motor_C_joint" type="fixed">
-    <origin rpy="1.5707963267948966 0.0 0.7853981633974483" xyz="0.16 0.07 -0.02"/>
-    <parent link="body"/>
-    <child link="motor_C"/>
-  </joint>
-  <link name="motor_D">
-    <inertial>
-      <mass value="0.20993692907613795"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
-    </inertial>
-    <collision name="motor_D">
-      <geometry>
-        <cylinder length="0.033" radius="0.045"/>
-      </geometry>
-    </collision>
-    <visual name="motor_D">
-      <geometry>
-        <cylinder length="0.033" radius="0.045"/>
-      </geometry>
-    </visual>
-  </link>
-  <joint name="motor_D_joint" type="fixed">
-    <origin rpy="1.5707963267948966 0.0 -0.7853981633974483" xyz="-0.16 0.07 -0.02"/>
-    <parent link="body"/>
-    <child link="motor_D"/>
-  </joint>
   <link name="motor_E">
     <inertial>
       <mass value="0.20993692907613795"/>
@@ -154,6 +112,48 @@
     <origin rpy="0.0 0.0 0.0" xyz="-0.1475 -0.135 0.044"/>
     <parent link="body"/>
     <child link="motor_F"/>
+  </joint>
+  <link name="motor_C">
+    <inertial>
+      <mass value="0.20993692907613795"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+    <collision name="motor_C">
+      <geometry>
+        <cylinder length="0.033" radius="0.045"/>
+      </geometry>
+    </collision>
+    <visual name="motor_C">
+      <geometry>
+        <cylinder length="0.033" radius="0.045"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="motor_C_joint" type="fixed">
+    <origin rpy="0 1.5707963267948966 0" xyz="0 -0.331 0.15"/>
+    <parent link="body"/>
+    <child link="motor_C"/>
+  </joint>
+  <link name="motor_D">
+    <inertial>
+      <mass value="0.20993692907613795"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+    <collision name="motor_D">
+      <geometry>
+        <cylinder length="0.033" radius="0.045"/>
+      </geometry>
+    </collision>
+    <visual name="motor_D">
+      <geometry>
+        <cylinder length="0.033" radius="0.045"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="motor_D_joint" type="fixed">
+    <origin rpy="1.5707963267948966 0.0 -0.7853981633974483" xyz="-0.16 0.07 -0.02"/>
+    <parent link="body"/>
+    <child link="motor_D"/>
   </joint>
   <link name="camera1">
     <inertial>
