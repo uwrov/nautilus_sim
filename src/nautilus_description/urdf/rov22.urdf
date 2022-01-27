@@ -24,6 +24,11 @@
       </geometry>
     </visual>
   </link>
+  <!-- Instantiations -->
+  <!-- current model has the the directions -->
+  <!-- x+ -> left -->
+  <!-- y+ -> back -->
+  <!-- z+ -> up -->
   <link name="motor_A">
     <inertial>
       <mass value="0.20993692907613795"/>
@@ -125,7 +130,7 @@
     </visual>
   </link>
   <joint name="motor_E_joint" type="fixed">
-    <origin rpy="0.0 0.0 0.0" xyz="0.165 -0.135 -0.02"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.1475 -0.135 0.044"/>
     <parent link="body"/>
     <child link="motor_E"/>
   </joint>
@@ -146,7 +151,7 @@
     </visual>
   </link>
   <joint name="motor_F_joint" type="fixed">
-    <origin rpy="0.0 0.0 0.0" xyz="-0.165 -0.135 -0.02"/>
+    <origin rpy="0.0 0.0 0.0" xyz="-0.1475 -0.135 0.044"/>
     <parent link="body"/>
     <child link="motor_F"/>
   </joint>
