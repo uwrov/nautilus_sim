@@ -87,6 +87,13 @@ For ROV 22
 roscd nautilus_description/urdf && xacro rov22.urdf.xacro > rov22.urdf && rosrun gazebo_ros spawn_model -f rov22.urdf -urdf -model rov22 -z 2
 ```
 
+**6. (Optional) Test ROV with sample data**
+
+  Be sure to source your ROS environment first.
+  ```
+  rosrun nautilus_worlds sample_data.py
+  ```
+
 ## Overview
 This is a highly portable simulation of UWROV's ROV. It's capable of being used as a stand-in for actual hardware, and can give a rough idea of how our ROV might interact with the real world.
 
