@@ -98,23 +98,23 @@
   <!-- y+ -> back -->
   <!-- z+ -> up -->
 
-  <!-- Port Bow -->
+  <!-- A: Port Bow -->
   <xacro:thrusters thrusterName="motor_A" x=".1475" y="-.283" z="-.044" r="${pi/2}" p="0.0" yaw="0"/>
 
-  <!-- Starboard Bow -->
+  <!-- B: Starboard Bow -->
   <xacro:thrusters thrusterName="motor_B" x="-.1475" y="-.283" z="-.044" r="${pi/2}" p="0.0" yaw="0"/>
 
-  <!-- Port -->
-  <xacro:thrusters thrusterName="motor_E" x=".1475" y="-.135" z=".044" r="0.0" p="0.0" yaw="0.0"/>
-
-  <!-- Starboard -->
-  <xacro:thrusters thrusterName="motor_F" x="-.1475" y="-.135" z=".044" r="0.0" p="0.0" yaw="0.0"/>
-
-  <!-- Bow -->
+  <!-- C: Bow -->
   <xacro:thrusters thrusterName="motor_C" x="0" y="-.331" z=".15" r="0" p="${pi/2}" yaw="0"/>
 
-  <!-- Stern -->
-  <xacro:thrusters thrusterName="motor_D" x="0" y="-.019" z=".15" r="${pi/2}" p="0.0" yaw="0"/>
+  <!-- D: Port -->
+  <xacro:thrusters thrusterName="motor_D" x=".1475" y="-.135" z=".044" r="0.0" p="0.0" yaw="0.0"/>
+
+  <!-- E: Starboard -->
+  <xacro:thrusters thrusterName="motor_E" x="-.1475" y="-.135" z=".044" r="0.0" p="0.0" yaw="0.0"/>
+
+  <!-- F: Stern -->
+  <xacro:thrusters thrusterName="motor_F" x="0" y="-.019" z=".15" r="${pi/2}" p="0.0" yaw="0"/>
 
 
   <xacro:cameras cameraName="camera1" x="0.0" y="-0.32" z="0.0" r="0.0" p="0.0" yaw="0.0"/>
