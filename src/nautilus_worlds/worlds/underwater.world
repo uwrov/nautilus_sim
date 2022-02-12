@@ -104,10 +104,5 @@
       </link>
     </model>
 
-    <!-- <include>
-      <uri>model://nautilus</uri>
-      <pose>0 0 1 0 0 0</pose>
-    </include> -->
-
   </world>
 </sdf>
