@@ -11,8 +11,8 @@ Thruster::Thruster(const std::string name, physics::ModelPtr parent,
     this->pwm_ = 1500;
     this->forwardMax = t100_ ? this->t100_for_max_ : this->t200_for_max_;
     this->reverseMax = t100_ ? this->t100_rev_max_ : this->t200_rev_max_;
-    this->slopeForward = forwardMax / (PWM_MAX - PWM_ZERO);
-    this->slopeReverse = -1.0 * reverseMax / (PWM_ZERO - PWM_MIN);
+    this->slopeForward = forwardMax / (PWM_MAX - PWM_MAX_START);
+    this->slopeReverse = -1.0 * reverseMax / (PWM_MIN_START - PWM_MIN);
   }
 
 void Thruster::addLinkForce() {
@@ -32,13 +32,13 @@ void Thruster::setPWM(int pwm) {
 
 double Thruster::pwmToForce(int pwm) {
   double ret = 0.0;
-  
-  // TODO: make scaling more accurate to life (check datashet), not linear
-  if (pwm < PWM_ZERO) {
+
+  if (pwm < PWM_MIN_START) {
     // map (PWM_MIN, PWM_ZERO) onto (reverseMax, 0)
     ret = this->reverseMax + this->slopeReverse * (pwm - PWM_MIN);
-  }
-  else {
+  } else if (pwm < PWM_MAX_START) {
+    ret = 0.0;
+  } else {
     // map (PWM_ZERO, PWM_MAX) onto (0, forwardMax)
     ret = this->slopeForward * (pwm - PWM_ZERO);
   }

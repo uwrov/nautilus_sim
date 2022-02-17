@@ -7,8 +7,12 @@
 #include <ignition/math.hh>
 
 #define PWM_ZERO 1500
-#define PWM_MAX 2000
-#define PWM_MIN 1000
+#define PWM_DEAD_ZONE 25
+#define PWM_MAX 1900
+#define PWM_MIN 1100
+
+#define PWM_MIN_START (PWM_ZERO - PWM_DEAD_ZONE)
+#define PWM_MAX_START (PWM_ZERO + PWM_DEAD_ZONE)
 
 namespace gazebo
 {
@@ -25,7 +29,7 @@ namespace gazebo
        */
       Thruster(const std::string name, physics::ModelPtr parent,
                bool t100);
-      
+
       /**
        * Simulate applying pwm onto thruster
        * Applies a force onto the body of nautilus, not the thurster itself
@@ -33,7 +37,7 @@ namespace gazebo
       void addLinkForce();
 
       /**
-       *  Set the pwm of the thruster 
+       *  Set the pwm of the thruster
        */
       void setPWM(int pwm);
 
